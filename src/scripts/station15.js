@@ -6,11 +6,18 @@ async function getData() {
     { id: 1, first_name: '優', family_name: '大木', affiliation: 'TechTrain', is_student: false },
     { id: 2, first_name: '太郎', family_name: '山田', affiliation: 'HogeHoge大学', is_student: true }
   ];
-  const result = await test()
-  return await result
+  await sleep(3000);
+  const result = test(userList)
+  return result;
 }
 
-function test() {
-  return
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function test(userList) {
+  return userList.map((user) => ({
+      full_name: user.family_name + ' ' + user.first_name,
+      ...user,
+  }));
+}
